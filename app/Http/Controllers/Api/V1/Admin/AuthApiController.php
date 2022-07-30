@@ -43,11 +43,13 @@ public function login (Request $request)
     }
 
 
-    // public function logout (Request $request)
-    // {
-    //     $token = $request->user()->token();
-    //     $token->revoke();
-    //     $response = ['message' => 'You have been successfully logged out!'];
-    //     return response($response, 200);
-    // }
+    public function logout (Request $request)
+    {
+        if ($request->user()) 
+        { 
+        $request->user()->tokens()->delete();
+        }
+
+        return response()->json(['message' => 'Logout Sucessfully'], 200);
+    }
 }
