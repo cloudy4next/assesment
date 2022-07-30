@@ -47,12 +47,16 @@ class RolesApiController extends Controller
             ->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
-    public function destroy(Role $role)
+    public function destroy(Role $role,$id)
     {
         abort_if(Gate::denies('role_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $role->delete();
+        $role = Role::findOrFail($id);
+        if($role)
+            $role->delete(); 
+        else
+            return response()->json(error);
 
-        return response(null, Response::HTTP_NO_CONTENT);
+        return response()->json(["message" => "Sucessfully Deleted"], 200);
     }
 }

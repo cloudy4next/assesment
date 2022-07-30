@@ -48,11 +48,19 @@ class EmployeesApiController extends Controller
             ->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
-    public function destroy(Employee $employee)
+    public function destroy(Employee $employee,$id)
     {
 
-        $employee->delete();
-
-        return response(null, Response::HTTP_NO_CONTENT);
+        $employee = Employee::findOrFail($id);
+        if($employee)
+        {
+            $employee->delete();
+            return response()->json(["message" => "Sucessfully Deleted"], 200);
+ 
+        } 
+        else
+        {
+            return response()->json(error);
+        }
     }
 }

@@ -40,12 +40,23 @@ class UsersApiController extends Controller
             ->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
-    public function destroy(User $user)
+    public function destroy(User $user,$id)
     {
+
         abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
+        $users = User::findOrFail($id);
 
-        $user->delete();
+        if($users)
+        {
+            $users->delete(); 
 
-        return response(null, Response::HTTP_NO_CONTENT);
+            return response()->json(["message" => "Sucessfully Deleted"], 200);
+        }
+        else
+        {
+            return response()->json(error);
+        }
+
     }
 }

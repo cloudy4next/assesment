@@ -1,19 +1,16 @@
 <?php
 
-// Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', 'middleware' => ['auth:api']], function () {
-//     Route::apiResource('permissions', 'PermissionsApiController');
-
-//     Route::apiResource('roles', 'RolesApiController');
-
-//     Route::apiResource('users', 'UsersApiController');
-
-//     Route::apiResource('appointments', 'AppointmentsApiController');
-
-// });
 
 Route::group(['prefix' => 'v1','namespace' => 'Api\V1\Admin','middleware' => ['cors']], function () {
     Route::post('login', 'AuthApiController@login');
     Route::post('logout', 'AuthApiController@logout');
+});
+
+Route::group(['prefix' => 'v1/users','namespace' => 'Api\V1\Admin','middleware' => ['cors','auth:api']], function(){
+    Route::get('index', 'UsersApiController@index');
+    Route::post('store', 'UsersApiController@store');
+    Route::post('update', 'UsersApiController@update');
+    Route::post('destroy/{id}', 'UsersApiController@destroy');
 });
 
 Route::group(['prefix' => 'v1/appointment','namespace' => 'Api\V1\Admin','middleware' => ['cors','auth:api']], function(){
@@ -43,9 +40,3 @@ Route::group(['prefix' => 'v1/service','namespace' => 'Api\V1\Admin','middleware
     Route::post('destroy/{id}', 'ServicesApiController@destroy');
 });
 
-Route::group(['prefix' => 'v1/users','namespace' => 'Api\V1\Admin','middleware' => ['cors','auth:api']], function(){
-    Route::get('index', 'UsersApiController@index');
-    Route::post('store', 'UsersApiController@store');
-    Route::post('update', 'UsersApiController@update');
-    Route::post('destroy/{id}', 'UsersApiController@destroy');
-});

@@ -45,12 +45,23 @@ class PermissionsApiController extends Controller
             ->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
-    public function destroy(Permission $permission)
+    public function destroy(Permission $permission,$id)
     {
         abort_if(Gate::denies('permission_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $permission->delete();
+        $permission = Permission::findOrFail($id);
+        if($permission)
+        {
+            $permission->delete();
+            return response()->json(["message" => "Sucessfully Deleted"], 200);
+ 
+        } 
+        else
+        {
+            return response()->json(error);
+        }
 
-        return response(null, Response::HTTP_NO_CONTENT);
+    
+
     }
 }

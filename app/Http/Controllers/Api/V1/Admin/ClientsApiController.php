@@ -45,9 +45,17 @@ class ClientsApiController extends Controller
 
     public function destroy(Client $client)
     {
+    $client = Client::findOrFail($id);
 
-        $client->delete();
+        if($client)
+        {
+            $client->delete(); 
+            return response()->json(["message" => "Sucessfully Deleted"], 200);
+        }
+        else
+        {
+            return response()->json(error);
+        }
 
-        return response(null, Response::HTTP_NO_CONTENT);
     }
 }
