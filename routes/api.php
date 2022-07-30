@@ -24,19 +24,19 @@ Route::group(['prefix' => 'v1/appointment','namespace' => 'Api\V1\Admin','middle
 Route::group(['prefix' => 'v1/client','namespace' => 'Api\V1\Admin','middleware' => ['cors','auth:api']], function(){
     Route::get('index', 'ClientsApiController@index');
     Route::post('store', 'ClientsApiController@store');
-    Route::post('update', 'ClientsApiController@update');
+    Route::post('update/{id}', 'ClientsApiController@update');
     Route::post('destroy/{id}', 'ClientsApiController@destroy');
 });
 Route::group(['prefix' => 'v1/emplyee','namespace' => 'Api\V1\Admin','middleware' => ['cors','auth:api']], function(){
     Route::get('index', 'EmployeesApiController@index');
     Route::post('store', 'EmployeesApiController@store');
-    Route::post('update', 'EmployeesApiController@update');
+    Route::post('update/{id}', 'EmployeesApiController@update');
     Route::post('destroy/{id}', 'EmployeesApiController@destroy');
 });
 Route::group(['prefix' => 'v1/service','namespace' => 'Api\V1\Admin','middleware' => ['cors','auth:api']], function(){
     Route::get('index', 'ServicesApiController@index');
     Route::post('store', 'ServicesApiController@store');
-    Route::post('update', 'ServicesApiController@update');
+    Route::post('update/{id}', 'ServicesApiController@update');
     Route::post('destroy/{id}', 'ServicesApiController@destroy');
 });
 

@@ -37,21 +37,24 @@ class EmployeesApiController extends Controller
         return new EmployeeResource($employee->load(['services']));
     }
 
-    public function update(UpdateEmployeeRequest $request, Employee $employee)
+
+    public function update(Request $request,Employee $employee,$id)
     {
-        $employee->update($request->all());
-        $employee->services()->sync($request->input('services', []));
+        $employee=Employee::find($id);
+        if($employee){
+            $employee->update($request->all());
+        }
+        else{
+            return response()->json(error);
+        }
+        return response()->json(["message" => "Sucessfully Updated","data"=>$service], 200);
 
 
-        return (new EmployeeResource($employee))
-            ->response()
-            ->setStatusCode(Response::HTTP_ACCEPTED);
     }
-
     public function destroy(Employee $employee,$id)
     {
 
-        $employee = Employee::findOrFail($id);
+        $employee = Employeess::findOrFail($id);
         if($employee)
         {
             $employee->delete();

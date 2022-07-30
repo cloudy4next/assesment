@@ -34,15 +34,19 @@ class ClientsApiController extends Controller
         return new ClientResource($client);
     }
 
-    public function update(UpdateClientRequest $request, Client $client)
+        public function update(Request $request,Client $client,$id)
     {
-        $client->update($request->all());
+        $client=Client::find($id);
+        if($client){
+            $client->update($request->all());
+        }
+        else{
+            return response()->json(error);
+        }
+        return response()->json(["message" => "Sucessfully Updated","data"=>$service], 200);
 
-        return (new ClientResource($client))
-            ->response()
-            ->setStatusCode(Response::HTTP_ACCEPTED);
+
     }
-
     public function destroy(Client $client)
     {
     $client = Client::findOrFail($id);

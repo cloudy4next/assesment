@@ -29,13 +29,18 @@ class ServicesApiController extends Controller
     }
 
 
-    public function update(UpdateServiceRequest $request, Service $service)
+    public function update(Request $request,Service $service,$id)
     {
-        $service->update($request->all());
+        $service=Service::find($id);
+        if($service){
+            $service->update($request->all());
+        }
+        else{
+            return response()->json(error);
+        }
+        return response()->json(["message" => "Sucessfully Updated","data"=>$service], 200);
 
-        return (new ServiceResource($service))
-            ->response()
-            ->setStatusCode(Response::HTTP_ACCEPTED);
+
     }
 
     public function destroy($id)

@@ -19,5 +19,4 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('appointments/destroy', 'AppointmentsController@massDestroy')->name('appointments.massDestroy');
     Route::resource('appointments', 'AppointmentsController');
 
-    Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
 });

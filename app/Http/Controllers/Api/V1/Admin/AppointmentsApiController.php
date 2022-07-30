@@ -43,26 +43,18 @@ class AppointmentsApiController extends Controller
 
     public function destroy($id)
     {
-        // abort_if(Gate::denies('appointment_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('appointment_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
         $appointment = Appointment::findOrFail($id);
-        // dd($appointment);
         if($appointment)
         {
             $appointment->delete(); 
-
-            return response()->json(["message" => "Sucessfully Deleted"], 200);
-
         }
-
         else
         {
             return response()->json(error);
-
         }
-        return response()->json(error);
-
-
+        return response()->json(["message" => "Sucessfully Deleted"], 200);
 
     }
 
