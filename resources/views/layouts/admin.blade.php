@@ -117,7 +117,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-    {{-- <script>
+     <script>
         $(function() {
             let copyButtonTrans = '{{ trans('global.datatables.copy') }}'
             let csvButtonTrans = '{{ trans('global.datatables.csv') }}'
@@ -207,7 +207,7 @@
 
             $.fn.dataTable.ext.classes.sPageButton = '';
         });
-    </script> --}}
+    </script> 
     @yield('scripts')
 </body>
 
