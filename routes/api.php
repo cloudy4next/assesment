@@ -6,6 +6,10 @@ Route::group(['prefix' => 'v1','namespace' => 'Api\V1\Admin','middleware' => ['c
     Route::post('logout', 'AuthApiController@logout');
 });
 
+Route::group(['prefix' => 'v1','namespace' => 'Api\V1\Admin','middleware' => ['cors','auth:api']], function () {
+    Route::post('logout', 'AuthApiController@logout');
+});
+
 Route::group(['prefix' => 'v1/users','namespace' => 'Api\V1\Admin','middleware' => ['cors','auth:api']], function(){
     Route::get('index', 'UsersApiController@index');
     Route::post('store', 'UsersApiController@store');
